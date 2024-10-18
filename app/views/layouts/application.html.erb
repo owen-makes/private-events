@@ -19,6 +19,23 @@
   </head>
 
   <body>
+    <div class="w-full flex justify-between items-center p-4">
+      <%= link_to "Private Events", events_path, method: :get, class: 'font-bold text-5xl text-red-500 m-5' %>
+      <% if user_signed_in? %>
+        <div class="m-5 font-bold">
+          <%= "Welcome, #{current_user.email} :)"%>
+        </div>
+      <% end %>
+        <div class="flex gap-4 ml-auto content-center justify-end">
+          <% if user_signed_in? %>
+            <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "bg-red-500 px-4 py-2 text-gray-100 my-4 rounded" %>
+            <%= button_to "New Event", new_event_path, method: :get, class: "bg-red-500 px-4 py-2 text-gray-100 my-4 rounded" %>
+          <% else %>
+            <%= button_to 'Log in', new_user_session_path, class: "bg-red-500 px-4 py-2 text-gray-100 my-4 rounded" %>
+            <%= button_to 'Sign up', new_user_registration_path, method: :get, class: "bg-red-500 px-4 py-2 text-gray-100 my-4 rounded" %>
+          <% end %>
+        </div>
+    </div>
     <main class="container mx-auto mt-28 px-5 flex">
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
