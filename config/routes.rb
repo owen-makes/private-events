@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  namespace :users do
+    resource :profile, only: [ :show, :edit, :update ]
+  end
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
   resources :events
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
