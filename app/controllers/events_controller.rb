@@ -37,24 +37,32 @@ class EventsController < ApplicationController
 
   # PATCH/PUT /events/1 or /events/1.json
   def update
-    respond_to do |format|
-      if @event.update(event_params)
-        format.html { redirect_to @event, notice: "Event was successfully updated." }
-        format.json { render :show, status: :ok, location: @event }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @event.errors, status: :unprocessable_entity }
+    if current_user == @event.host
+      respond_to do |format|
+        if @event.update(event_params)
+          format.html { redirect_to @event, notice: "Event was successfully updated." }
+          format.json { render :show, status: :ok, location: @event }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+          format.json { render json: @event.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      flash[:alert] = "You don't have permission to edit this event."
+      redirect_to events_path
     end
   end
 
   # DELETE /events/1 or /events/1.json
   def destroy
-    @event.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to events_path, status: :see_other, notice: "Event was successfully destroyed." }
-      format.json { head :no_content }
+    @event = Event.find(params[:id])
+    if current_user == @event.host
+      @event.destroy
+      flash[:notice] = "Event was successfully destroyed."
+      redirect_to events_path
+    else
+      flash[:alert] = "You don't have permission to delete this event."
+      redirect_to events_path
     end
   end
 

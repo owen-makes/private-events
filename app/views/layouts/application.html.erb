@@ -20,10 +20,10 @@
 
   <body>
     <div class="w-full flex justify-between items-center p-4">
-      <%= link_to "Private Events", events_path, method: :get, class: 'font-bold text-5xl text-red-500 m-5' %>
+      <%= link_to "Eventbright", events_path, method: :get, class: 'font-bold text-5xl text-red-500 m-5' %>
       <% if user_signed_in? %>
         <div class="m-5 font-bold">
-          <%= "Welcome, #{current_user.email} :)"%>
+          <%= "Welcome, #{current_user.full_name} :)"%>
         </div>
       <% end %>
         <div class="flex gap-4 ml-auto content-center justify-end">
