@@ -19,7 +19,7 @@ class Users::ProfilesController < ApplicationController
   private
 
   def set_user
-    @user = params[:id] ? User.find(params[:id]) : current_user
+    @user = User.find(params[:id])
   end
 
   def user_params

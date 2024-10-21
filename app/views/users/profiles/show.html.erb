@@ -1,8 +1,8 @@
 <div class="flex flex-col">
-  <h1>User Profile</h1>
+  <h1 class="text-4xl">User Profile</h1>
   <p>Name: <%= @user.full_name %></p>
   <p>Email: <%= @user.email %></p>
-  <h2>Hosted Events</h2>
+  <h2 class="text-3xl">Hosted Events</h2>
   <% if @user.hosted_events.any? %>
     <ul>
       <% @user.hosted_events.each do |event| %>
@@ -12,7 +12,7 @@
   <% else %>
     <p>No hosted events yet.</p>
   <% end %>
-  <h2>Attended Events</h2>
+  <h2 class="text-3xl">Attended Events</h2>
   <% if @user.attended_events.any? %>
     <ul>
       <% @user.hosted_events.each do |event| %>

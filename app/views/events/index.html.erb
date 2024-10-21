@@ -10,13 +10,23 @@
   <% content_for :title, "Events" %>
 
   <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl text-red-500">Happening Now</h1>
-    <%= link_to "New Event", new_event_path, class: "rounded-lg py-3 px-5 bg-red-500 text-white block font-medium" %>
+    <h1 class="font-bold text-4xl text-red-500">Upcoming</h1>
+    <% if user_signed_in? %>
+      <%= link_to "New Event", new_event_path, class: "rounded-lg py-3 px-5 bg-red-500 text-white block font-medium" %>
+    <% end %>
   </div>
 
   <div id="events" class="min-w-full">
-    <% @events.each do |event| %>
+    <% @events.upcoming.each do |event| %>
       <%= render partial: "event_card", locals: { event: event } %>
     <% end %>
   </div>
+
+  <h1 class="font-bold text-4xl text-red-400 mt-8">Missed</h1>
+    <div id="events" class="min-w-full">
+    <% @events.past.each do |event| %>
+      <%= render partial: "event_card", locals: { event: event } %>
+    <% end %>
+  </div>
+
 </div>

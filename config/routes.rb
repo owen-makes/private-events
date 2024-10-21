@@ -1,20 +1,21 @@
 Rails.application.routes.draw do
   namespace :users do
-    resource :profile, only: [ :edit, :update ]
+    resource :profile, only: [ :show, :edit, :update ]
   end
 
-  resources :users, only: [ :show ], controller: "users/profiles", as: "user_profile"
+  resources :users, only: [ :show ], controller: "users/profiles"
 
-  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks", registrations: "users/registrations" }
+  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks",
+                                    registrations: "users/registrations" }
   resources :events do
     member do
       post "attend"
       delete "unattend"
       # note for future owen:
       # this is the same as doing:
-      # resources :events
-      # post 'events/:id/attend', to: 'events#attend'
-      # delete 'events/:id/unattend', to: 'events#unattend'
+      #  resources :events
+      #   post 'events/:id/attend', to: 'events#attend'
+      #   delete 'events/:id/unattend', to: 'events#unattend'
       # member routes are used when you want to add a custom action that relates to a single instance of a resource.
       # These routes will include the resource's ID in the URL
     end
