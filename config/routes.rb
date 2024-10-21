@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   namespace :users do
-    resource :profile, only: [ :show, :edit, :update ]
+    resource :profile, only: [ :edit, :update ]
   end
+
+  resources :users, only: [ :show ], controller: "users/profiles", as: "user_profile"
+
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks", registrations: "users/registrations" }
   resources :events
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
