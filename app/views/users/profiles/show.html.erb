@@ -1,6 +1,6 @@
 <div class="flex flex-col">
   <h1>User Profile</h1>
-  <p>Name: <%#= @user.full_name %></p>
+  <p>Name: <%= @user.full_name %></p>
   <p>Email: <%= @user.email %></p>
   <h2>Hosted Events</h2>
   <% if @user.hosted_events.any? %>

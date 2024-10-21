@@ -1,9 +1,9 @@
 
-    <div id="<%= dom_id event %>" class="px-4 py-4 rounded-lg my-3 content-center">
+    <div id="<%= dom_id event %>" class="bg-red-100 hover:bg-red-200 px-4 py-4 rounded-lg my-3 content-center">
 
       <div class="flex justify-between content-center">
         <p class="my-0">
-          <%= link_to event.name, event, method: :get, class: 'font-bold text-5xl' %> @
+          <%= link_to event.name, event, method: :get, class: 'font-bold text-2xl' %> @
           <%= event.location %>
         </p>
         <p class="content-center">
@@ -25,12 +25,7 @@
         <% if event.attendees.blank? %>
           <p class="text-gray-500">No Attendees yet</p>
         <% else %>
-          <p>Attending:</p>
-          <ul>
-            <% event.attendees.each do |att| %>
-              <li> <%= att.full_name %></li>
-            <% end %>
-          </ul>
+          <p><%= event.attendees.count %> attendees</p>
         <% end %>
       </div>
 

@@ -16,7 +16,7 @@
 
   <div id="events" class="min-w-full">
     <% @events.each do |event| %>
-      <%= render event %>
+      <%= render partial: "event_card", locals: { event: event } %>
     <% end %>
   </div>
 </div>

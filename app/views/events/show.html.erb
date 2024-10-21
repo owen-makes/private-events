@@ -1,18 +1,28 @@
 <div class="mx-auto md:w-2/3 w-full flex">
   <div class="mx-auto">
     <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+      <p class="py-3 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
     <% end %>
+  </div>
+</div>
 
-    <%= render @event %>
+    <div class="w-full"><%= render @event %></div>
 
     
     <%= link_to "Back to events", events_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
+    <% if user_signed_in? %>
+      <% if @event.attendees.include?(current_user) %>
+        <%= button_to 'Cancel Attendance', unattend_event_path(@event), method: :delete, class: 'bg-red-500 px-5 py-3 text-gray-100 my-4 rounded hover:bg-red-400 hover:text-gray-600 hover:ring hover:ring-red-200 ml-2' %>
+      <% else %>
+        <%= button_to 'Attend Event', attend_event_path(@event), method: :post, class: 'bg-red-500 px-5 py-3 text-gray-100 my-4 rounded hover:bg-red-400 hover:text-gray-600 hover:ring hover:ring-red-200 ml-2' %>
+      <% end %>
+    <% else %>
+      <%= link_to 'Sign in to Attend', new_user_session_path, class: 'bg-red-500 px-5 py-3 text-gray-100 my-4 rounded hover:bg-red-400 hover:text-gray-600 hover:ring hover:ring-red-200 ml-2' %>
+    <% end %>
+
+    <div class="ml-2">
       <% if current_user == @event.host %>
-        <%= link_to "Edit this event", edit_event_path(@event), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-        <%= button_to "Destroy this event", @event, method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+        <%= link_to "Edit this event", edit_event_path(@event), class: "bg-red-500 px-5 py-3 text-gray-100 my-4 rounded hover:bg-red-400 hover:text-gray-600 hover:ring hover:ring-red-200 ml-2" %>
+        <%= button_to "Delete this event", @event, method: :delete, class: "bg-red-500 px-5 py-3 text-gray-100 my-4 rounded hover:bg-red-400 hover:text-gray-600 hover:ring hover:ring-red-200 ml-2" %>
       <% end %>
     </div>
-  </div>
-</div>

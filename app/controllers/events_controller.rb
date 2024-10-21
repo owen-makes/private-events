@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: %i[ show edit update destroy ]
+  before_action :set_event, only: %i[ show edit update destroy attend unattend ]
   before_action :authenticate_user!, except: [ :index, :show ]
   # GET /events or /events.json
   def index
@@ -64,6 +64,16 @@ class EventsController < ApplicationController
       flash[:alert] = "You don't have permission to delete this event."
       redirect_to events_path
     end
+  end
+
+  def attend
+    @event.attendees << current_user unless @event.attendees.include?(current_user)
+    redirect_to @event, notice: "You are now attending this event."
+  end
+
+  def unattend
+    @event.attendees.delete(current_user)
+    redirect_to @event, notice: "You are no longer attending this event."
   end
 
   private
