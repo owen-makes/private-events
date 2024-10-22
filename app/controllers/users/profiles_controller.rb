@@ -1,11 +1,15 @@
 class Users::ProfilesController < ApplicationController
   before_action :authenticate_user!, except: [ :show ]
-  before_action :set_user
+  # before_action :set_user
   def show
+          # For /users/:id
+          @user = User.find(params[:id]) if params[:id]
+          # For /users/profile
+          @user ||= current_user
   end
 
   def edit
-    redirect_to users_profile_path unless @user == current_user
+    @user = current_user
   end
 
   def update

@@ -6,7 +6,9 @@ Rails.application.routes.draw do
     resource :profile, only: [ :show, :edit, :update ]
   end
 
-  resources :users, only: [ :show ], controller: "users/profiles"
+  scope module: "users" do
+    resources :profiles, only: [ :show ], path: "users"
+  end
 
   resources :events do
     member do
