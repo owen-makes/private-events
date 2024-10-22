@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
+  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks",
+                                    registrations: "users/registrations" }
+
   namespace :users do
     resource :profile, only: [ :show, :edit, :update ]
   end
 
   resources :users, only: [ :show ], controller: "users/profiles"
 
-  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks",
-                                    registrations: "users/registrations" }
   resources :events do
     member do
       post "attend"
